@@ -1,11 +1,9 @@
 package com.lyhour.developer.phoneshop_studying.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.lyhour.developer.phoneshop_studying.entity.Brand;
-import com.lyhour.developer.phoneshop_studying.exception.ApiException;
 import com.lyhour.developer.phoneshop_studying.exception.ResourceNotFoundOrNot;
 import com.lyhour.developer.phoneshop_studying.repository.BrandRepository;
 import com.lyhour.developer.phoneshop_studying.service.BrandService;
