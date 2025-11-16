@@ -1,5 +1,8 @@
 package com.lyhour.developer.phoneshop_studying.service.impl;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +36,10 @@ public class BrandServiceImpl implements BrandService{
 		Brand brand = getById(id);
 		brand.setName(brandUpdate.getName());
 		return brandRepository.save(brand);
+	}
+	@Override
+	public List<Brand> getBrands(String name) {
+		return brandRepository.findByNameIgnoreCase(name);
 	}
 	
 
