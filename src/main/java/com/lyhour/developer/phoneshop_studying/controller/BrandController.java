@@ -1,9 +1,6 @@
 package com.lyhour.developer.phoneshop_studying.controller;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,7 +25,8 @@ import com.lyhour.developer.phoneshop_studying.service.BrandService;
 @RequestMapping("brands")
 public class BrandController {
 
-    private final BrandRepository brandRepository;
+    @SuppressWarnings("unused")
+	private final BrandRepository brandRepository;
 	@Autowired
 	private BrandService brandService;
 
