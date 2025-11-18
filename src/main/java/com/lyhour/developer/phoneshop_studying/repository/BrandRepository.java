@@ -10,4 +10,5 @@ import com.lyhour.developer.phoneshop_studying.entity.Brand;
 @Repository
 public interface BrandRepository extends JpaRepository<Brand, Integer>, JpaSpecificationExecutor<Brand>{
 	List<Brand> findByNameIgnoreCase(String name);
+	List<Brand> findByNameLike(String name);
 }
