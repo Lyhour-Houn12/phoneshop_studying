@@ -1,9 +1,12 @@
 package com.lyhour.developer.phoneshop_studying.controller;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,40 +17,56 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lyhour.developer.phoneshop_studying.dto.BrandDTO;
+import com.lyhour.developer.phoneshop_studying.dto.BrandDto;
+import com.lyhour.developer.phoneshop_studying.dto.PageDto;
 import com.lyhour.developer.phoneshop_studying.entity.Brand;
 import com.lyhour.developer.phoneshop_studying.mapper.BrandMapper;
+import com.lyhour.developer.phoneshop_studying.repository.BrandRepository;
 import com.lyhour.developer.phoneshop_studying.service.BrandService;
-
 
 @RestController
 @RequestMapping("brands")
 public class BrandController {
+
+    private final BrandRepository brandRepository;
 	@Autowired
 	private BrandService brandService;
+
+    BrandController(BrandRepository brandRepository) {
+        this.brandRepository = brandRepository;
+    }
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> create(@RequestBody BrandDTO brandDTO) {
+	public ResponseEntity<?> create(@RequestBody BrandDto brandDTO) {
 		Brand brand = BrandMapper.INSTANCE.toBrand(brandDTO);
 		brand = brandService.create(brand);
 		return ResponseEntity.ok(BrandMapper.INSTANCE.toBrand(brandDTO));
 	}
 	@GetMapping("{id}")
-	public ResponseEntity<?> getOneBrand(@PathVariable("id") Integer brandId){
-		Brand brand = brandService.getById(brandId);
+	public ResponseEntity<?> getOneBrand(@PathVariable Integer id){
+		Brand brand = brandService.getById(id);
 		return ResponseEntity.ok(BrandMapper.INSTANCE.toBrandDto(brand));
 	}
 	@PutMapping("{id}")
-	public ResponseEntity<?> updated(@PathVariable("id") Integer branId, @RequestBody BrandDTO brandDTO){
+	public ResponseEntity<?> updated(@PathVariable Integer id, @RequestBody BrandDto brandDTO){
 		Brand brand = BrandMapper.INSTANCE.toBrand(brandDTO);
-		Brand updatedBrand = brandService.update(branId, brand);
+		Brand updatedBrand = brandService.update(id, brand);
 		return ResponseEntity.ok(BrandMapper.INSTANCE.toBrandDto(updatedBrand));
 	}
-	@GetMapping()
-	public ResponseEntity<?> getAllBrands(@RequestParam("name") String name){
-		List<BrandDTO> list = brandService.getBrands(name)
+	/*
+	@GetMapping
+	public ResponseEntity<?> getBrands(@RequestParam Map<String, String> params){
+		List<BrandDto> listBrands = brandService.getBrands(params)
 			.stream()
 			.map(brand -> BrandMapper.INSTANCE.toBrandDto(brand))
 			.collect(Collectors.toList());
-		return ResponseEntity.ok(list);
+		return ResponseEntity.ok(listBrands);
 	}
+	*/
+	@GetMapping
+	public ResponseEntity<?> pageBrands(@RequestParam Map<String, String> params){
+		Page<Brand> pagesBrands = brandService.pagesBrands(params);
+		PageDto pageDto = new PageDto(pagesBrands);
+		return ResponseEntity.ok(pageDto);
+	}
+	
 }
