@@ -33,10 +33,13 @@ public class BrandServiceImpl implements BrandService{
 //			return brandOptional.get();
 //		}
 //		throw new HttpClientErrorException(HttpStatus.NOT_ACCEPTABLE, String.format("Brand with id = %d not found", id));
-		return brandRepository.findById(id)
+		 Brand brand = brandRepository.findById(id)
 				//.orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, String.format("Brand with id = %d not found", id)));
 				//.orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, String.format("Brand with id = %d not found", id)));
 				.orElseThrow(() -> new ResourceNotFoundOrNot("Brand", id));
+		 return brand;
+		 
+		
 	}
 	@Override
 	public Brand update(Integer id, Brand brandUpdate) {

@@ -24,8 +24,6 @@ import com.lyhour.developer.phoneshop_studying.service.BrandService;
 @RestController
 @RequestMapping("brands")
 public class BrandController {
-
-    @SuppressWarnings("unused")
 	private final BrandRepository brandRepository;
 	@Autowired
 	private BrandService brandService;
