@@ -3,6 +3,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/phoneshop_studying
     username: phoneshop_studying
     password: 123
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -10,3 +11,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher

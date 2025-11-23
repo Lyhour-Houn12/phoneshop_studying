@@ -1,5 +1,7 @@
 package com.lyhour.developer.phoneshop_studying.mapper;
 
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -9,8 +11,8 @@ import com.lyhour.developer.phoneshop_studying.entity.Model;
 import com.lyhour.developer.phoneshop_studying.service.BrandService;
 
 @Mapper(componentModel = "spring",uses = {BrandService.class})
-public interface ModelMapper {
-	ModelMapper INSTANCE = Mappers.getMapper(ModelMapper.class);
+public interface ModelEntityMapper {
+	ModelEntityMapper INSTANCE = Mappers.getMapper(ModelEntityMapper.class);
 	
 	@Mapping(target = "brand", source = "brandId")
 	Model toModel(ModelDTO dto);
