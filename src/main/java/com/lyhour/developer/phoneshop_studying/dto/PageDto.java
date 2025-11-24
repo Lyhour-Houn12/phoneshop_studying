@@ -1,6 +1,5 @@
 package com.lyhour.developer.phoneshop_studying.dto;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.domain.Page;

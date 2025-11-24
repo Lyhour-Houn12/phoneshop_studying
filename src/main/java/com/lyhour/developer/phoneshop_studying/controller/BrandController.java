@@ -1,5 +1,6 @@
-package com.lyhour.developer.phoneshop_studying.controller;
+	package com.lyhour.developer.phoneshop_studying.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,20 +16,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lyhour.developer.phoneshop_studying.dto.BrandDto;
+import com.lyhour.developer.phoneshop_studying.dto.ModelDTO;
 import com.lyhour.developer.phoneshop_studying.dto.PageDto;
 import com.lyhour.developer.phoneshop_studying.entity.Brand;
+import com.lyhour.developer.phoneshop_studying.entity.Model;
 import com.lyhour.developer.phoneshop_studying.mapper.BrandMapper;
+import com.lyhour.developer.phoneshop_studying.mapper.ModelEntityMapper;
 import com.lyhour.developer.phoneshop_studying.repository.BrandRepository;
 import com.lyhour.developer.phoneshop_studying.service.BrandService;
+import com.lyhour.developer.phoneshop_studying.service.ModelService;
 
 @RestController
 @RequestMapping("brands")
 public class BrandController {
-
-    @SuppressWarnings("unused")
 	private final BrandRepository brandRepository;
 	@Autowired
 	private BrandService brandService;
+	@Autowired
+	private ModelService modelService;
 
     BrandController(BrandRepository brandRepository) {
         this.brandRepository = brandRepository;
@@ -39,10 +44,15 @@ public class BrandController {
 		brand = brandService.create(brand);
 		return ResponseEntity.ok(BrandMapper.INSTANCE.toBrand(brandDTO));
 	}
-	@GetMapping("{id}")
-	public ResponseEntity<?> getOneBrand(@PathVariable Integer id){
-		Brand brand = brandService.getById(id);
-		return ResponseEntity.ok(BrandMapper.INSTANCE.toBrandDto(brand));
+	@GetMapping("{id}/models")
+	public ResponseEntity<?> getOneBrand(@PathVariable("id") Integer brandId){
+//		Brand brand = brandService.getById(id);
+//		return ResponseEntity.ok(BrandMapper.INSTANCE.toBrandDto(brand));
+		List<Model> brands = modelService.getByBrand(brandId);
+		List<ModelDTO> list = brands.stream()
+			.map(model -> ModelEntityMapper.INSTANCE.toModelDto(model))
+			.toList();
+		return ResponseEntity.ok(list);
 	}
 	@PutMapping("{id}")
 	public ResponseEntity<?> updated(@PathVariable Integer id, @RequestBody BrandDto brandDTO){
