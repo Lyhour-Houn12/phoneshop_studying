@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003_fix_brands_sequences
+      author: hour0598@gmail.com
+      changes:
+        - sql:
+            sql: >
+              SELECT setval(
+                pg_get_serial_sequence('brands', 'brand_id'),
+                (SELECT COALESCE(MAX(brand_id), 0) FROM brands) + 1
+              );
