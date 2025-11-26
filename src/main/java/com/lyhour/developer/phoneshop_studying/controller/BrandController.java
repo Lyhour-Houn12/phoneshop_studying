@@ -55,7 +55,7 @@ public class BrandController {
 		return ResponseEntity.ok(list);
 	}
 	@PutMapping("{id}")
-	public ResponseEntity<?> updated(@PathVariable Integer id, @RequestBody BrandDto brandDTO){
+	public ResponseEntity<?> updated(@PathVariable Long id, @RequestBody BrandDto brandDTO){
 		Brand brand = BrandMapper.INSTANCE.toBrand(brandDTO);
 		Brand updatedBrand = brandService.update(id, brand);
 		return ResponseEntity.ok(BrandMapper.INSTANCE.toBrandDto(updatedBrand));

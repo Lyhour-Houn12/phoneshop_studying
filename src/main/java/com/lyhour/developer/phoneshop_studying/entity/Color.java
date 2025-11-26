@@ -8,15 +8,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
-@Entity
 @Data
-@Table(name = "brands")
-public class Brand {
+@Entity
+@Table(name = "colors")
+public class Color {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "brand_id")
+	@Column(name =  "color_id")
 	private Long id;
-	@Column(name = "brand_name")
+	@Column(name = "color_name")
 	private String name;
-	
 }
