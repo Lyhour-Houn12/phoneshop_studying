@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.lyhour.developer.phoneshop_studying.entity.Model;
+import com.lyhour.developer.phoneshop_studying.exception.ResourceNotFoundOrNot;
 import com.lyhour.developer.phoneshop_studying.repository.ModelRepsository;
 import com.lyhour.developer.phoneshop_studying.service.ModelService;
 
@@ -24,6 +25,12 @@ public class ModelServiceImpl implements ModelService{
 	@Override
 	public List<Model> getByBrand(Integer brandId) {
 		return modelRepsository.findByBrandId(brandId);
+	}
+
+	@Override
+	public Model getById(Long id) {
+		return modelRepsository.findById(id)
+			.orElseThrow(() ->  new ResourceNotFoundOrNot("Model", id));
 	}
 
 }

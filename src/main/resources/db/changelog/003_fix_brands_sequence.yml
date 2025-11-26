@@ -4,6 +4,7 @@ databaseChangeLog:
       author: hour0598@gmail.com
       changes:
         - sql:
+            dbms: postgresql
             sql: >
               SELECT setval(
                 pg_get_serial_sequence('brands', 'brand_id'),

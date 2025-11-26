@@ -10,4 +10,5 @@ import com.lyhour.developer.phoneshop_studying.entity.Model;
 public interface ModelService {
 	Model save(Model model);
 	List<Model> getByBrand(Integer BrandId);
+	Model getById(Long id);
 }
