@@ -65,7 +65,7 @@ public class BrandController {
 	public ResponseEntity<?> getBrands(@RequestParam Map<String, String> params){
 		List<BrandDto> listBrands = brandService.getBrands(params)
 			.stream()
-			.map(brand -> BrandMapper.INSTANCE.toBrandDto(brand))
+			.map(brand -> BrandMapper.ISTANCE.toBrandDto(brand))
 			.collect(Collectors.toList());
 		return ResponseEntity.ok(listBrands);
 	}
