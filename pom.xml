@@ -88,6 +88,7 @@
 
     <build>
         <plugins>
+			
 
 			<!-- Correct compiler plugin for Java 21 -->
             <plugin>

@@ -14,6 +14,7 @@ import com.lyhour.developer.phoneshop_studying.entity.Product;
 import com.lyhour.developer.phoneshop_studying.entity.Sale;
 import com.lyhour.developer.phoneshop_studying.entity.SaleDetails;
 import com.lyhour.developer.phoneshop_studying.exception.ApiException;
+import com.lyhour.developer.phoneshop_studying.exception.ResourceNotFoundOrNot;
 import com.lyhour.developer.phoneshop_studying.repository.ProductRepository;
 import com.lyhour.developer.phoneshop_studying.repository.SaleDetailRepository;
 import com.lyhour.developer.phoneshop_studying.repository.SaleRepository;
@@ -30,7 +31,9 @@ public class SaleServiceImpl implements SaleService{
 	private final ProductRepository productRepository;
 	private final SaleRepository saleRepository;
 	private final SaleDetailRepository saleDetailRepository;
-	@Override
+
+    
+	
 	public void sell(SaleDTO saleDTO) {
 		List<Long> productIds = saleDTO.getProducts().stream()
 			.map(ProductSoldDTO::getProductId)
@@ -71,6 +74,32 @@ public class SaleServiceImpl implements SaleService{
 		});
 		
 		
+	}
+	@Override
+	public void cancelSale(Long saleId) {
+		// update sale active
+		Sale sale = getById(saleId);
+		sale.setActive(false);
+		saleRepository.save(sale);
+		// update stock product
+		List<SaleDetails> saleDetails = saleDetailRepository.findBySaleId(saleId);
+		List<Long> productIds = saleDetails.stream()
+			.map(sd -> sd.getProduct().getId())
+			.toList();
+		List<Product> products = productRepository.findAllById(productIds);
+		Map<Long, Product> productMap = products.stream()
+			.collect(Collectors.toMap(Product::getId, Function.identity()));
+		saleDetails.forEach(sd -> {
+			Product product = productMap.get(sd.getProduct().getId());
+			product.setAvailableUnit(product.getAvailableUnit() + sd.getUnit());
+			productRepository.save(product);
+		});
+		
+	}
+	@Override
+	public Sale getById(Long saleId) {
+		return saleRepository.findById(saleId)
+				.orElseThrow(() -> new ResourceNotFoundOrNot("Sale", saleId));
 	}
 
 }
