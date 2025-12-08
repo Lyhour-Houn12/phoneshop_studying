@@ -20,4 +20,6 @@ public class Sale {
 	private Long id;
 	@Column(name = "sold_date")
 	private LocalDateTime soldDate;
+	
+	Boolean active;
 }

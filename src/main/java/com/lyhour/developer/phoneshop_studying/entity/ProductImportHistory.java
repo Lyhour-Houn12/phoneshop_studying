@@ -11,17 +11,21 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-
-
+import lombok.NoArgsConstructor;
 @Data
+@Builder
+@AllArgsConstructor
 @Entity
+@NoArgsConstructor
 @Table(name = "productImportHistory")
 public class ProductImportHistory {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "import_id")
-	private Long Id;
+	private Long id;
 	@Column(name =  "import_unit")
 	private Integer importUnit;
 	@Column(name = "import_price")
