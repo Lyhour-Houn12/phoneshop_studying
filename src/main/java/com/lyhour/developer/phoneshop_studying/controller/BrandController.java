@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lyhour.developer.phoneshop_studying.dto.BrandDto;
+import com.lyhour.developer.phoneshop_studying.dto.BrandDTO;
 import com.lyhour.developer.phoneshop_studying.dto.ModelDTO;
 import com.lyhour.developer.phoneshop_studying.dto.PageDto;
 import com.lyhour.developer.phoneshop_studying.entity.Brand;
@@ -39,7 +39,7 @@ public class BrandController {
         this.brandRepository = brandRepository;
     }
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> create(@RequestBody BrandDto brandDTO) {
+	public ResponseEntity<?> create(@RequestBody BrandDTO brandDTO) {
 		Brand brand = BrandMapper.INSTANCE.toBrand(brandDTO);
 		brand = brandService.create(brand);
 		return ResponseEntity.ok(BrandMapper.INSTANCE.toBrand(brandDTO));
@@ -55,7 +55,7 @@ public class BrandController {
 		return ResponseEntity.ok(list);
 	}
 	@PutMapping("{id}")
-	public ResponseEntity<?> updated(@PathVariable Long id, @RequestBody BrandDto brandDTO){
+	public ResponseEntity<?> updated(@PathVariable Long id, @RequestBody BrandDTO brandDTO){
 		Brand brand = BrandMapper.INSTANCE.toBrand(brandDTO);
 		Brand updatedBrand = brandService.update(id, brand);
 		return ResponseEntity.ok(BrandMapper.INSTANCE.toBrandDto(updatedBrand));
