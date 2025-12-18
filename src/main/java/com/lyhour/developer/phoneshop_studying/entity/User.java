@@ -1,15 +1,19 @@
 package com.lyhour.developer.phoneshop_studying.entity;
 
-import com.lyhour.developer.phoneshop_studying.config.security.RoleEnum;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
+
 @Data
 @Entity
 @Table(name = "users")
@@ -21,11 +25,13 @@ public class User {
 	private String lastname;
 	private String username;
 	private String password;
-	@Enumerated(EnumType.STRING)
-	private RoleEnum role;
-	private boolean accountNonExpired;
-	private boolean accountNonLocked;
-	private boolean credentialsNonExpired;
-	private boolean enabled;
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "users_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_role_id"))
+	private Set<Role> roles = new HashSet<>();
+
+	private boolean accountNonExpired = true;
+	private boolean accountNonLocked = true;
+	private boolean credentialsNonExpired = true;
+	private boolean enabled = true;
 
 }
