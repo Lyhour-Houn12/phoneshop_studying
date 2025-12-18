@@ -11,10 +11,17 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+
 @Table(name = "products",
 uniqueConstraints = {@UniqueConstraint(columnNames = {"model_id", "color_id"})} )
 public class Product {

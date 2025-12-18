@@ -1,3 +1,4 @@
+
 package com.lyhour.developer.phoneshop_studying.entity;
 
 import java.math.BigDecimal;
@@ -11,9 +12,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name = "productImportHistory")
 public class ProductImportHistory {
 	@Id
@@ -30,3 +37,4 @@ public class ProductImportHistory {
 	@JoinColumn(name = "product_id")
 	private Product product;
 }
+

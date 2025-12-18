@@ -22,27 +22,28 @@ import com.lyhour.developer.phoneshop_studying.entity.Brand;
 import com.lyhour.developer.phoneshop_studying.entity.Model;
 import com.lyhour.developer.phoneshop_studying.mapper.BrandMapper;
 import com.lyhour.developer.phoneshop_studying.mapper.ModelEntityMapper;
-import com.lyhour.developer.phoneshop_studying.repository.BrandRepository;
 import com.lyhour.developer.phoneshop_studying.service.BrandService;
 import com.lyhour.developer.phoneshop_studying.service.ModelService;
 
 @RestController
 @RequestMapping("brands")
 public class BrandController {
-	private final BrandRepository brandRepository;
 	@Autowired
 	private BrandService brandService;
 	@Autowired
 	private ModelService modelService;
 
-    BrandController(BrandRepository brandRepository) {
-        this.brandRepository = brandRepository;
-    }
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> create(@RequestBody BrandDTO brandDTO) {
-		Brand brand = BrandMapper.INSTANCE.toBrand(brandDTO);
-		brand = brandService.create(brand);
-		return ResponseEntity.ok(BrandMapper.INSTANCE.toBrand(brandDTO));
+		// 1. Convert DTO to Entity
+	    Brand brand = BrandMapper.INSTANCE.toBrand(brandDTO);
+	    
+	    // 2. Save to Database (This updates 'brand' with the new ID)
+	    brand = brandService.create(brand);
+	    
+	    // 3. CORRECTED: Return the saved 'brand' entity converted back to DTO
+	    // Use the 'brand' variable, NOT 'brandDTO'
+	    return ResponseEntity.ok(BrandMapper.INSTANCE.toBrandDto(brand));
 	}
 	@GetMapping("{id}/models")
 	public ResponseEntity<?> getOneBrand(@PathVariable("id") Integer brandId){

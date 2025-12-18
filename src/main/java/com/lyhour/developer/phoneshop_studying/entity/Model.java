@@ -1,3 +1,4 @@
+
 package com.lyhour.developer.phoneshop_studying.entity;
 
 import jakarta.persistence.Column;

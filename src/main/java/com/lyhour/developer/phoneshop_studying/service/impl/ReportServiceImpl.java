@@ -99,7 +99,7 @@ public class ReportServiceImpl implements ReportService{
 			.toList();
 		List<Product> products = productRepository.findAllById(productIds);
 		Map<Long, Product> productMap = products.stream()
-			.collect(Collectors.toMap(p -> p.getId(), p-> p));
+			.collect(Collectors.toMap(p -> p.getId(), Function.identity()));
 		Map<Product, List<ProductImportHistory>> importHistoryMap = importHistories.stream()
 			.collect(Collectors.groupingBy(his -> his.getProduct()));
 		

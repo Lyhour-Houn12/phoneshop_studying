@@ -1,6 +1,8 @@
 //package com.lyhour.developer.phoneshop_studying.service;
 //
 //import static org.junit.jupiter.api.Assertions.assertEquals;
+//import static org.mockito.ArgumentMatchers.any;
+//import static org.mockito.ArgumentMatchers.anyList;
 //import static org.mockito.Mockito.when;
 //
 //import java.time.LocalDate;
@@ -13,9 +15,10 @@
 //import org.mockito.Mockito;
 //import org.mockito.junit.jupiter.MockitoExtension;
 //
-//import com.lyhour.developer.phoneshop_studying.ReportServiceTestHelper;
 //import com.lyhour.developer.phoneshop_studying.dto.ExpenseReportDTO;
+//import com.lyhour.developer.phoneshop_studying.entity.Product;
 //import com.lyhour.developer.phoneshop_studying.entity.ProductImportHistory;
+//import com.lyhour.developer.phoneshop_studying.helper.ReportServiceHelper;
 //import com.lyhour.developer.phoneshop_studying.repository.ProductImportRepository;
 //import com.lyhour.developer.phoneshop_studying.repository.ProductRepository;
 //import com.lyhour.developer.phoneshop_studying.repository.SaleDetailRepository;
@@ -40,13 +43,16 @@
 //	@Test
 //	void testGetByExpenseReportDTO() {
 //		// given
-//		List<ProductImportHistory> histories = ReportServiceTestHelper.getProductImportHistories();
-//
+//		List<ProductImportHistory> productImportHistories = ReportServiceHelper.getProductImportHistories();
+//		List<Product> products = ReportServiceHelper.getProducts();
 //		// when
-//		when(productImportRepository.findAll(Mockito.any(ProductImportHistorySpec.class))).thenReturn(histories);
-//		List<ExpenseReportDTO> expenseReportDTO = reportService.getByExpenseReportDTO(LocalDate.now().minusMonths(1),
+//		when(productImportRepository.findAll(Mockito.any(ProductImportHistorySpec.class)))
+//				.thenReturn(productImportHistories);
+//		when(productRepository.findAllById(any())).thenReturn(products);
+//		List<ExpenseReportDTO> reportDTO = reportService.getByExpenseReportDTO(LocalDate.now().minusMonths(1),
 //				LocalDate.now());
 //		// then
-//		assertEquals(1, expenseReportDTO.size());
+//		assertEquals(2, reportDTO.size());
+//
 //	}
 //}

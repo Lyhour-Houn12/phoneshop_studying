@@ -1,4 +1,4 @@
-//package com.lyhour.developer.phoneshop_studying;
+//package com.lyhour.developer.phoneshop_studying.helper;
 //
 //import java.math.BigDecimal;
 //import java.time.LocalDateTime;
@@ -7,39 +7,42 @@
 //import com.lyhour.developer.phoneshop_studying.entity.Product;
 //import com.lyhour.developer.phoneshop_studying.entity.ProductImportHistory;
 //
-//public class ReportServiceTestHelper {
+//public class ReportServiceHelper {
 //	private static Product product1 = Product.builder()
 //			.id(1l)
-//			.name("iphone 14 pro max")
+//			.name("iphone 14 pro")
 //			.build();
 //	private static Product product2 = Product.builder()
 //			.id(2l)
-//			.name("iphone 13 pro max")
+//			.name("iphone 12 pro")
 //			.build();
 //	private static Product product3 = Product.builder()
 //			.id(3l)
-//			.name("iphone 12 pro max")
+//			.name("iphone 11 pro")
 //			.build();
-//	
+//	public static List<Product> getProducts() {
+//		return List.of(product1, product2);
+//	}
 //	public static List<ProductImportHistory> getProductImportHistories(){
 //		ProductImportHistory history1 = ProductImportHistory.builder()
 //				.product(product1)
-//				.importUnit(10)
+//				.importUnit(20)
+//				.importDateTime(LocalDateTime.of(2026, 12, 7, 10, 0))
 //				.pricePerUnit(BigDecimal.valueOf(1200))
-//				.importDateTime(LocalDateTime.of(2025, 12, 7, 3, 23))
 //				.build();
 //		ProductImportHistory history2 = ProductImportHistory.builder()
-//				.product(product1)
-//				.importUnit(15)
+//				.product(product2)
+//				.importUnit(10)
+//				.importDateTime(LocalDateTime.of(2026, 12, 10, 10, 22))
 //				.pricePerUnit(BigDecimal.valueOf(1100))
-//				.importDateTime(LocalDateTime.of(2025, 12, 8, 5, 23))
 //				.build();
 //		ProductImportHistory history3 = ProductImportHistory.builder()
-//				.product(product1)
-//				.importUnit(10)
+//				.product(product3)
+//				.importUnit(110)
+//				.importDateTime(LocalDateTime.of(2026, 12, 7, 9, 12))
 //				.pricePerUnit(BigDecimal.valueOf(1000))
-//				.importDateTime(LocalDateTime.of(2025, 12, 8, 10, 23))
-//				.build();		
+//				.build();
+//		
 //		return List.of(history1, history2, history3);
 //	}
 //}

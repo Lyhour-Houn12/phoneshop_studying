@@ -20,7 +20,6 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class BrandServiceImpl implements BrandService{
-    @Autowired
 	private final BrandRepository brandRepository;
 	@Override
 	public Brand create(Brand brand) {
@@ -73,8 +72,8 @@ public class BrandServiceImpl implements BrandService{
 			brandFilter.setName(name);
 		}
 		if(params.containsKey("id")) {
-			String id = params.get("id");
-			brandFilter.setName(id);
+			Long id =Long.parseLong(params.get("id"));
+			brandFilter.setId(id);
 		}
 		int pageSize = PageUtil.DEFUALT_PAGE_LIMIT;
 		if(params.containsKey(PageUtil.PAGE_LIMIT)) {
